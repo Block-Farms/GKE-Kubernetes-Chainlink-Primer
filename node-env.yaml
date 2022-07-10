@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-config
+data:
+  ROOT: "/chainlink"
+  LOG_LEVEL: "debug"
+  ETH_CHAIN_ID: "5"
+  ALLOW_ORIGINS: "*"
+  ETH_URL: "ws://rpc-failover:4000/"
+  DATABASE_URL: "postgresql://<db-username>:<db-user-passphrase>@<db-internal-ip>:5432/<db-name>"
+  DATABASE_LOCKING_MODE: "lease"
+  TLS_CERT_PATH: "/chainlink/.tls/server.crt"
+  TLS_KEY_PATH: "/chainlink/.tls/server.key"
+  ETH_GAS_LIMIT_DEFAULT: "500000"
