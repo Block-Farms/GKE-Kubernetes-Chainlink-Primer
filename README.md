@@ -93,7 +93,9 @@ kubectl logs chainlink-7c77f9cf-5xqvh
 ```
 
 ### Access the Chainlink Operator GUI via:
-```kubectl port-forward service/chainlink 6689```
+```
+kubectl port-forward service/chainlink 6689
+```
 ### Enter your email and password found within `.api`:
 ```
 <your gui email>
