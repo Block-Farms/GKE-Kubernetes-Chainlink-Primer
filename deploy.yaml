@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chainlink
+spec:
+  selector:
+    matchLabels:
+      app: chainlink
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: chainlink
+    spec:
+      containers:
+        - name: chainlink
+          image: smartcontract/chainlink:1.4.0
+          args: ["local", "n", "-p",  "/chainlink/.password", "-a", "/chainlink/.api"]
+          envFrom:
+            - configMapRef:
+                name: env-config
+          ports:
+          - containerPort: 6688
+          volumeMounts:
+            - name: chainlink
+              mountPath: /chainlink
+            - name: api-volume
+              mountPath: /chainlink/.api
+              subPath: .api
+            - name: password-volume
+              mountPath: /chainlink/.password
+              subPath: .password
+            - name: crt-volume
+              mountPath: /chainlink/.tls/server.crt
+              subPath: server.crt
+            - name: key-volume
+              mountPath: /chainlink/.tls/server.key
+              subPath: server.key
+      volumes:
+        - name: chainlink
+          emptyDir: {}
+        - name: api-volume
+          secret:
+            secretName: api-env
+        - name: password-volume
+          secret:
+            secretName: password-env
+        - name: crt-volume
+          secret:
+            secretName: crt-env
+        - name: key-volume
+          secret:
+            secretName: key-env
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chainlink
+  labels:
+    app: chainlink
+spec:
+  clusterIP: None
+  selector:
+    app: chainlink
+  ports:
+    - name: listening
+      port: 6689
+      targetPort: 6689
+      protocol: TCP
