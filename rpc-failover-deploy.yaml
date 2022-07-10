@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rpc-failover
+spec:
+  selector:
+    matchLabels:
+      app: rpc-failover
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rpc-failover
+    spec:
+      containers:
+        - name: rpc-failover
+          image: fiews/cl-eth-failover
+          args: ["ws://<internal-ip>:8546","wss://endpoint1","wss://endpoint2"]
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rpc-failover
+  labels:
+    app: rpc-failover
+spec:
+  clusterIP: None
+  selector:
+    app: rpc-failover
