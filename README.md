@@ -6,6 +6,8 @@ GCP/GKE K8S Guide to deploy and monitor a Chainlink Cluster
 2. Project Created
 3. PostgreSQL DB Server created, with username and password and database name setup
 4. Websocket RPC Endpoint either cloud provider such as Infura, or self hosted (ie: ip:8546)
+5. On your local client: Google SDK installed
+6. Google SDK has Kubectl installed
 
 #### Login to google cloud sdk
 ```
