@@ -91,7 +91,7 @@ chainlink-7c77f9cf-5xqvh        1/1     Running   0          74s
 rpc-failover-7b78bfb988-xwt6t   1/1     Running   0          80s
 ```
 
-#### Verify the Chainlink node logs are clean:
+#### Verify the Chainlink logs are clean:
 ```
 kubectl logs chainlink-7c77f9cf-5xqvh
 ```
