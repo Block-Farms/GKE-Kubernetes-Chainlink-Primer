@@ -54,6 +54,14 @@ kubectl create secret generic api-env --from-file=".api"
 kubectl create secret generic api-env --from-file=".password"
 ```
 
+#### On your local client, create the TLS certificate and key pair:
+```
+openssl req -x509 -out  ~/server.crt  -keyout ~/server.key \
+  -newkey rsa:2048 -nodes -sha256 -days 365 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+```
+
 #### Upload HTTPS for the Chainlink Operator GUI:
 ```
 kubectl create secret generic crt-env --from-file="server.crt"
