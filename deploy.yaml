@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: chainlink
-          image: smartcontract/chainlink:1.4.0
+          image: smartcontract/chainlink:1.4.1-root
           args: ["local", "n", "-p",  "/chainlink/.password", "-a", "/chainlink/.api"]
           envFrom:
             - configMapRef:
