@@ -53,7 +53,7 @@ kubectl config set-context --current --namespace=chainlink
 #### Upload `.api` which contains the email+password to access the GUI, and `.password` which contains the keystore password:
 ```
 kubectl create secret generic api-env --from-file=".api"
-kubectl create secret generic api-env --from-file=".password"
+kubectl create secret generic password-env --from-file=".password"
 ```
 
 #### On your local client, create the TLS certificate and key pair:
